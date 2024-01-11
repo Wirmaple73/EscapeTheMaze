@@ -137,10 +137,10 @@ This game simply utilizes the standard WASD/Arrow keys in order to move your cha
 Though, you have to use the WASD keys (Arrow keys won't work) along with the Shift key in order to jump if you've purchased the 'Boots of Leaping' upgrade.
 
 ## Known issues/inconsistencies
-### Possible round softlock
+### Possible round softlock:
 On very rare occasions, there might be some walls completely surrounding the player and/or the exit point, making the round unbeatable. However, you can bypass them with the "The Boots of Leaping" upgrade.
 
-### Players' data corruption
+### Players' data corruption:
 One small syntactical error in the output XML file (Located at `C:\Users\%Username%\AppData\Local\EscapeTheMaze\Users.xml`) can render the whole file useless. this normally wouldn't happen if you don't tamper with the file.
 
 ### Washed-out colors:
