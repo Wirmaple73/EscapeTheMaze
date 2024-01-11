@@ -164,7 +164,7 @@ The suggested console settings are as follows:
 <img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/9e441f7a-8e12-4c22-8dbc-b473d79eba22" width="18%"></img> 
 <img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/c5e1206a-64fa-4d5e-a611-9cdb5b31966f" width="18%"></img> 
 
-# Download link
+## Download link
 Enough wall of text, you can download the latest release [here](https://github.com/Wirmaple73/EscapeTheMaze/releases/latest).
 
 All downloaded audio files belong to their respective owners.<br>
