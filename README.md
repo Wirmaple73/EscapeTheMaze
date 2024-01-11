@@ -16,6 +16,7 @@ The listed entries are updated with the latest game update.
 		<th>Color</th>
 		<th width="120">Name</th>
 		<th width="80">Spawn chance</th>
+		<th>Max occurrences</th>
 		<th>Description</th>
 	</tr>
 	<tr align="center">
@@ -23,6 +24,7 @@ The listed entries are updated with the latest game update.
 		<td>Green</td>
 		<td>Player</td>
 		<td>~</td>
+		<td>1</td>
 		<td align="left">Your main, playable character in the game.</td>
 	</tr>
 	<tr align="center">
@@ -30,6 +32,7 @@ The listed entries are updated with the latest game update.
 		<td>Red</td>
 		<td>Exit Point</td>
 		<td>~</td>
+		<td>1</td>
 		<td align="left">Your main destination in each round. reaching it will grant you 30 score.</td>
 	</tr>
  	<tr align="center">
@@ -37,6 +40,7 @@ The listed entries are updated with the latest game update.
 		<td>Random</td>
 		<td>Wall</td>
 		<td>~</td>
+		<td>600</td>
 		<td align="left">The main obstacles in the game. Colliding with one deducts a heart, 20 score and cause you to respawn, thus be extra careful around those.</td>
 	</tr>
  	<tr align="center">
@@ -44,6 +48,7 @@ The listed entries are updated with the latest game update.
 		<td>Yellow</td>
 		<td>Bonus Point</td>
 		<td>45%</td>
+		<td>3</td>
 		<td align="left">Collecting one increments your score by 20.</td>
 	</tr>
  	<tr align="center">
@@ -51,6 +56,7 @@ The listed entries are updated with the latest game update.
 		<td>Green</td>
 		<td>Coin</td>
 		<td>40%</td>
+		<td>2</td>
 		<td align="left">Your main source of income, increases your balance by a random value ranging from $15 to $50.</td>
 	</tr>
  	<tr align="center">
@@ -58,6 +64,7 @@ The listed entries are updated with the latest game update.
 		<td>Purple</td>
 		<td>First Aid Kit</td>
 		<td>22.5%</td>
+		<td>2</td>
 		<td align="left">Restores a heart; however, you won't receive more if you already have 3.</td>
 	</tr>
  	<tr align="center">
@@ -65,6 +72,7 @@ The listed entries are updated with the latest game update.
 		<td>Purple</td>
 		<td>Hourglass</td>
 		<td>25%</td>
+		<td>1</td>
 		<td align="left">Buys you some more time by incrementing the round time limit by 15 seconds.</td>
 	</tr>
 </table>
@@ -139,13 +147,13 @@ One small syntactical error in the output XML file (Located at `C:\Users\%Userna
 The game colors may look different on some different windows platforms, notably on Windows 7 and 10 (Some colors on Windows 10 might look moderately washed-out because of Microsoft's new console colors).
 
 ## Notes
-.NET 6 Desktop Runtime (either x86 or x64 depending on the game architecture you download) is required to run the game. You can download it [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). (Make sure to download the '.NET Desktop Runtime' version!)
+.NET 6 Desktop Runtime (either x86 or x64 depending on the game architecture you download) is required to run the game. You can download it [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). (**Make sure to download the '.NET Desktop Runtime' version!**)
 
 The suggested console settings are as follows:
-* Window width: 100
-* Window height: 30
-* Font family: Consolas
-* Font size: 16
+* **Window width**: 100
+* **Window height**: 30
+* **Font family**: Consolas
+* **Font size**: 16
 
 **You are suggested to set the font family to 'Consolas' and font size to '16' for the optimal experience.**
 
@@ -159,5 +167,5 @@ The suggested console settings are as follows:
 # Download link
 Enough wall of text, you can download the latest release [here](https://github.com/Wirmaple73/EscapeTheMaze/releases/latest).
 
-All downloaded audio files belong to their respective owners.
+All downloaded audio files belong to their respective owners.<br>
 Feel free to report any bugs you come across, Thank you.
