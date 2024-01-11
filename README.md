@@ -168,4 +168,4 @@ The suggested console settings are as follows:
 Enough wall of text, you can download the latest release [here](https://github.com/Wirmaple73/EscapeTheMaze/releases/latest).
 
 All downloaded audio files belong to their respective owners.<br>
-Feel free to report any bugs you come across, Thank you.
+Feel free to submit your suggestions and report any bugs you come across, Thanks.
