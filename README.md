@@ -1,3 +1,7 @@
+<head>
+	<meta name="google-site-verification" content="GP54oU2vu5BiXjgGz9CNXSfROJ1MhwmRpm0cBKz5M-k" />
+</head>
+
 # In the name of God
 ## Escape The Maze
 A game where you have to traverse pseudo-randomly generated maze-like levels, reach the 'Exit point' while dodging 'Walls', optionally collecting 'Bonus points' for a score bonus and also 'Coins' which can be spent in the game's upgrade shop.
