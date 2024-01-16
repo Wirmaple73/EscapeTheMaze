@@ -69,7 +69,7 @@ namespace EscapeTheMaze
 
 		public Upgrades Upgrade => Upgrades.NicerWalls;
 		public string Name => "Nicer Walls";
-		public string Description => $"Reduces the wall collision chance to {NewCollisionChance}% and halves the score penalty (though, it won't prevent respawning).";
+		public string Description => $"Reduces the wall collision chance to {NewCollisionChance}% and halves the score penalty (though, it won't prevent\nrespawning).";
 		public int Price => 3250;
 		public int RequiredLevel => 3;
 	}

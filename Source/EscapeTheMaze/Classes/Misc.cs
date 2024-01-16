@@ -138,12 +138,12 @@ namespace EscapeTheMaze
 
 	public enum SelectedMenuItem
 	{
-		Play, Leaderboard, UpgradeShop, ChangeAccount, CheckForUpdates, About, Exit
+		Play, Leaderboard, UpgradeShop, ChangeAccount, CheckForUpdates, About, Exit, ImportUsers, ExportUsers
 	}
 
 	public enum AudioEffect
 	{
-		MenuNavigation, UpgradePurchase, GameFailure, BootsOfLeaping, Footstep, ExitPoint,
+		MenuNavigation, UpgradePurchase, Failure, BootsOfLeaping, Footstep, ExitPoint,
 		WallCollision, BonusPoint, Coin, FirstAidKit, Hourglass
 	}
 

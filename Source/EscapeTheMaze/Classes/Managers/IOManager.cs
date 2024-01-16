@@ -12,6 +12,8 @@ namespace EscapeTheMaze.Managers
 			set => Console.SetCursorPosition(value.Left, value.Top);
 		}
 
+		private static readonly string EmptyLine = new(' ', Constants.WindowWidth);
+
 		public static void WriteAt(char value, Position position, ConsoleColor color = ConsoleColor.Gray)
 			=> WriteAt(value.ToString(), position, color);
 
@@ -42,8 +44,6 @@ namespace EscapeTheMaze.Managers
 
 			if (startNewPage)
 				WaitForKeyPress("Press any key to continue...");
-
-			
 		}
 		
 		[MethodImpl(MethodImplOptions.Synchronized)]
@@ -76,23 +76,32 @@ namespace EscapeTheMaze.Managers
 
 		public static void DrawMenu(params string[] captions)
 		{
+			for (int i = 0; i < captions.Length; i++)
+				InternalDrawMenu(i + 1, captions[i]);
+		}
+
+		public static void DrawMenu(params (int ID, string Caption)[] captions)
+		{
+			foreach (var (id, caption) in captions)
+				InternalDrawMenu(id, caption);
+		}
+
+		private static void InternalDrawMenu(int id, string caption)
+		{
 			const ConsoleColor captionColor = ConsoleColor.Cyan;
 
-			for (int i = 0; i < captions.Length; i++)
-			{
-				WriteColored(false, false,
+			WriteColored(false, false,
 					("[", Constants.KeyColor),
-					($"{i + 1}", Constants.ValueColor),
+					($"{id}", Constants.ValueColor),
 					("] ", Constants.KeyColor),
-					(captions[i] + "\n", captionColor)
-				);
-			}
+					(caption + "\n", captionColor)
+			);
 		}
 
 		public static void WriteHeader(string value)
 			=> WriteColored($"---- {value} ----", ConsoleColor.Yellow, true, wrapText: true);
 
-		public static void ClearLine(int top) => WriteAt(new string(' ', Constants.WindowWidth), 0, top);
+		public static void ClearLine(int top) => WriteAt(EmptyLine, 0, top);
 
 		public static void StartNewPage(bool isCursorVisible = false)
 		{

@@ -32,13 +32,13 @@
     <None Remove="Resources\Audio\Coin.wav" />
     <None Remove="Resources\Audio\CoinPickup.wav" />
     <None Remove="Resources\Audio\ExitPoint.wav" />
+    <None Remove="Resources\Audio\Failure.wav" />
     <None Remove="Resources\Audio\FirstAidKit.wav" />
     <None Remove="Resources\Audio\Footstep.wav" />
     <None Remove="Resources\Audio\Footstep1.wav" />
     <None Remove="Resources\Audio\Footstep2.wav" />
     <None Remove="Resources\Audio\Footstep3.wav" />
     <None Remove="Resources\Audio\Footstep4.wav" />
-    <None Remove="Resources\Audio\GameFailure.wav" />
     <None Remove="Resources\Audio\Hourglass.wav" />
     <None Remove="Resources\Audio\LowOnHealth.wav" />
     <None Remove="Resources\Audio\LowOnHearts.wav" />
@@ -86,7 +86,7 @@
     <Content Include="Resources\Audio\Footstep4.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Audio\GameFailure.wav">
+    <Content Include="Resources\Audio\Failure.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Audio\Hourglass.wav">

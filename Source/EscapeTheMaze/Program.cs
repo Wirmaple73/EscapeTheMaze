@@ -51,9 +51,18 @@ namespace EscapeTheMaze
 						UserManager.ExportUsers();
 						UIManager.DisplayExitPage();
 						return;
+
+					case SelectedMenuItem.ImportUsers:
+						UserManager.ImportUsers();
+						UIManager.DisplayLoginPageAndStoreUser();
+						break;
+
+					case SelectedMenuItem.ExportUsers:
+						UserManager.ExportUsers();
+						break;
 				}
 			}
-			
+
 			void ProcessArguments() => IsDebugModeEnabled = args.Contains("-debug");
 		}
 	}

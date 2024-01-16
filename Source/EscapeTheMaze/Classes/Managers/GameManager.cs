@@ -473,7 +473,7 @@ namespace EscapeTheMaze.Managers
 				if (roundState == RoundState.Failure)
 				{
 					IOManager.WriteColored($"You ran out of {(currentHearts <= 0 ? "hearts" : "time")}!\n", Red, true);
-					AudioManager.Play(AudioEffect.GameFailure);
+					AudioManager.Play(AudioEffect.Failure);
 				}
 
 				IOManager.WriteHeader($"Round {currentRound} statistics");

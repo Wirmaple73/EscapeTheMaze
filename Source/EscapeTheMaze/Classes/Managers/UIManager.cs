@@ -17,7 +17,7 @@ namespace EscapeTheMaze.Managers
 
 		private static readonly Encoding defaultEncoding = Encoding.UTF8;
 
-		// 'Shell Execute' is apparently required for opening URLs in .NET (https://stackoverflow.com/a/61035650/18954775)
+		// Apparently 'Shell Execute' is required for opening URLs in .NET (https://stackoverflow.com/a/61035650/18954775)
 		private static readonly ProcessStartInfo repositoryProcessInfo = new(VersionManager.RepositoryURL) { UseShellExecute = true };
 
 		static UIManager()
@@ -96,7 +96,12 @@ namespace EscapeTheMaze.Managers
 					"Play", "Leaderboard", "Upgrade shop", "Change account", "Check for updates", "About", "Exit"
 				);
 
-				switch (IOManager.WaitForKeyPress("\nPlease select an option [1-7]: ").KeyChar)
+				if (Program.IsDebugModeEnabled)
+					IOManager.DrawMenu((8, "[DEBUG] Import users"), (9, "[DEBUG] Export users"));
+
+				char selectedOption = IOManager.WaitForKeyPress("\nPlease select an option [1-7]: ").KeyChar;
+
+				switch (selectedOption)
 				{
 					case '1': return SelectedMenuItem.Play;
 					case '2': return SelectedMenuItem.Leaderboard;
@@ -105,6 +110,11 @@ namespace EscapeTheMaze.Managers
 					case '5': return SelectedMenuItem.CheckForUpdates;
 					case '6': return SelectedMenuItem.About;
 					case '7': return SelectedMenuItem.Exit;
+					case '8' or '9':
+						if (Program.IsDebugModeEnabled)
+							return selectedOption == '8' ? SelectedMenuItem.ImportUsers : SelectedMenuItem.ExportUsers;
+
+						break;
 				}
 			}
 		}
@@ -131,10 +141,10 @@ namespace EscapeTheMaze.Managers
 			Console.WriteLine("Press any key to continue, or 'ESC' to return to the main menu...");
 			Console.SetCursorPosition(0, 0);
 
-			bool startGame = IOManager.WaitForKeyPress().Key != ConsoleKey.Escape;
+			bool doStartGame = IOManager.WaitForKeyPress().Key != ConsoleKey.Escape;
 			IOManager.ResetBufferHeight();
 
-			return startGame;
+			return doStartGame;
 
 			static void DisplayEntityInfo<T>(double spawnChance = 100, int maxOccurrences = 1) where T : Entity, new()
 			{
@@ -184,7 +194,9 @@ namespace EscapeTheMaze.Managers
 
 			foreach (var u in Users)
 			{
-				IOManager.WriteColored($" | {(u.Username == CurrentUser.Username ? $"{u.Username} (You)" : u.Username),-26} | {u.TopScore,-9} | ${u.Balance,-8:N0} | {u.TimeElapsed,-12:mm':'ss'.'ff} |", isOddLine ? DarkGray : Gray, true);
+				bool isCurrentUser = u.Username == CurrentUser.Username;
+
+				IOManager.WriteColored($" | {(isCurrentUser ? $"{u.Username} (You)" : u.Username),-26} | {u.TopScore,-9} | ${u.Balance,-8:N0} | {u.TimeElapsed,-12:mm':'ss'.'ff} |", isCurrentUser ? Cyan : isOddLine ? DarkGray : Gray, true);
 				isOddLine = !isOddLine;
 			}
 
@@ -330,7 +342,10 @@ namespace EscapeTheMaze.Managers
 			IOManager.ResetBufferHeight();
 
 			static void DisplayErrorMessage(string message)
-				=> IOManager.WriteColored(true, false, ($"{message}\n", Red));
+			{
+				AudioManager.Play(AudioEffect.Failure);
+				IOManager.WriteColored(true, false, ($"{message}\n", Red));
+			}
 		}
 
 		public static void DisplayUpdatePage()
@@ -365,9 +380,11 @@ namespace EscapeTheMaze.Managers
 
 				case VersionLookupState.ConnectionError:
 					IOManager.WriteColored("There was an error trying to fetch data from the target URL. Please make sure you are properly connected to the internet and try again.\n", Red, true, true);
-                    Console.WriteLine("Error details:");
+                    
+					Console.WriteLine("Error details:");
 					IOManager.WriteColored(message, Red, true, true);
 
+					AudioManager.Play(AudioEffect.Failure);
 					break;
 			}
 

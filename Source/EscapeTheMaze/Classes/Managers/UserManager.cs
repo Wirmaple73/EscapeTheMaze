@@ -17,6 +17,12 @@ namespace EscapeTheMaze.Managers
 
 		static UserManager() => UserFileManager.ImportUsers();
 
+		public static void ImportUsers()
+		{
+			Users.Clear();
+			UserFileManager.ImportUsers();
+		}
+
 		public static void ExportUsers() => UserFileManager.ExportUsers();
 
 		public static void StoreCurrentUserIndex(string username)
@@ -32,7 +38,7 @@ namespace EscapeTheMaze.Managers
 			}
 		}
 
-		// Sort the list (by username)
+		// Sort the list (ascending by username)
 		private static void SortUserList() => Users = Users.OrderBy(x => x.Username).ToList();
 
 		private static class UserFileManager
@@ -61,6 +67,7 @@ namespace EscapeTheMaze.Managers
 					}
 					catch (Exception ex)
 					{
+						AudioManager.Play(AudioEffect.Failure);
 						IOManager.StartNewPage(true);
 
 						IOManager.WriteColored(false, false,
@@ -82,6 +89,7 @@ namespace EscapeTheMaze.Managers
 								}
 								catch (Exception e)
 								{
+									AudioManager.Play(AudioEffect.Failure);
 									IOManager.WriteColored(e.Message + "\n", ConsoleColor.Red, true, true, true);
 								}
 
@@ -119,7 +127,6 @@ namespace EscapeTheMaze.Managers
 						Trace.WriteLine($"There was an error trying to import a user\n({ex.Message}).\n");
 					}
 
-					// Can't catch the exceptions that occur in the function below for some reason
 					T GetElementValue<T>(string name) where T : IConvertible
 						=> (T)Convert.ChangeType(element.Element(name).Value, typeof(T));
 				}
