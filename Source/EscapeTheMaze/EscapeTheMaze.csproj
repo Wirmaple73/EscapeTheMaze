@@ -7,16 +7,20 @@
     <Nullable>disable</Nullable>
 	<UseWPF>true</UseWPF>
 	<Title>Escape The Maze</Title>
-	<Authors>Wirmaple73</Authors>
+	<Authors>Alireza Shahidi Fard</Authors>
 	<Product>Escape The Maze</Product>
 	<Description>Escape The Maze</Description>
 	<PlatformTarget>AnyCPU</PlatformTarget>
 	<ApplicationIcon>Icon.ico</ApplicationIcon>
+	<FileVersion>1.0.1</FileVersion>
+	<AssemblyVersion>1.0.1</AssemblyVersion>
+	<Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>none</DebugType>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
