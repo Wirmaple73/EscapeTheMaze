@@ -161,11 +161,12 @@ You are suggested to set the font family to 'Consolas' and font size to '16' (ot
 Alternatively, you can run the game in 'Debug mode', which provides you with more information and control (e.g. Player's position, random' seed, importing and exporting users' data, etc.) over the game by running the game executable file with the `-debug` parameter.
 
 ## Images
-<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/528b13c3-0a44-4bb0-acae-e71de227898e" width="18%"></img> 
-<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/fac5ede9-00c2-49a7-996d-63ed46c9e529" width="18%"></img> 
-<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/499d0482-7523-4bce-b636-69eebca04867" width="18%"></img> 
-<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/9e441f7a-8e12-4c22-8dbc-b473d79eba22" width="18%"></img> 
-<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/c5e1206a-64fa-4d5e-a611-9cdb5b31966f" width="18%"></img> 
+<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/9a0c5650-bd39-4bbf-b331-fd4a89062a76" width="15%"></img> 
+<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/4ad1f381-4b19-4a0e-9644-0d21519dbfc3" width="15%"></img> 
+<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/37bf21c6-bb74-4ca2-b222-37b8f3ab5278" width="15%"></img> 
+<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/c18f1e5f-9875-430b-8438-07d42300be2e" width="15%"></img> 
+<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/5beadb97-ca5c-4ca8-a270-1f3a073403cd" width="15%"></img> 
+<img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/b2a7f21b-7c8f-4573-b6bb-ab7e1fef43f8" width="15%"></img> 
 
 ## Download link
 Enough wall of text, you can download the latest release [here](https://github.com/Wirmaple73/EscapeTheMaze/releases/latest).
