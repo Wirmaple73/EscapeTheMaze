@@ -155,7 +155,10 @@ The suggested console settings are as follows:
 * **Font family**: Consolas
 * **Font size**: 16
 
-**You are suggested to set the font family to 'Consolas' and font size to '16' for the optimal experience.**
+You are suggested to set the font family to 'Consolas' and font size to '16' (other Monospaced fonts should work fine as well) for the optimal experience **(Trust me, you won't want to play the game with 'Raster fonts').**
+
+## Debug mode
+Alternatively, you can run the game in 'Debug mode', which provides you with more information and control (e.g. Player's position, random' seed, importing and exporting users' data, etc.) over the game by running the game executable file with the `-debug` parameter.
 
 ## Images
 <img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/528b13c3-0a44-4bb0-acae-e71de227898e" width="18%"></img> 
