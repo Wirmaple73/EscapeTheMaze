@@ -65,7 +65,7 @@ The listed entries are updated with the latest game update.
 		<td>First Aid Kit</td>
 		<td>22.5%</td>
 		<td>2</td>
-		<td align="left">Restores a heart; however, you won't receive more if you already have 3.</td>
+		<td align="left">Restores a heart; however, you won't receive more if you already have 3 (5 if you've purchased the 'Toughnut' upgrade).</td>
 	</tr>
  	<tr align="center">
 		<td>ϴ</td>
@@ -144,7 +144,7 @@ On very rare occasions, there might be some walls completely surrounding the pla
 One small syntactical error in the output XML file (Located at `C:\Users\%Username%\AppData\Local\EscapeTheMaze\Users.xml`) can render the whole file useless. this normally wouldn't happen if you don't tamper with the file.
 
 ### Washed-out colors:
-The game colors may look different on some different windows platforms, notably on Windows 7 and 10 (Some colors on Windows 10 might look moderately washed-out because of Microsoft's new console colors).
+The game colors may look and feel different on some different windows platforms, notably on Windows 7 and 10 (Some colors on Windows 10 might look moderately washed-out because of Microsoft's new console colors).
 
 ## Notes
 .NET 6 Desktop Runtime (either x86 or x64 depending on the game architecture you download) is required to run the game. You can download it [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). (**Make sure to download the '.NET Desktop Runtime' version!**)
@@ -156,6 +156,8 @@ The suggested console settings are as follows:
 * **Font size**: 16
 
 You are suggested to set the font family to 'Consolas' and font size to '16' (other Monospaced fonts should work fine as well) for the optimal experience **(Trust me, you won't want to play the game with 'Raster fonts').**
+
+Moreover, the game is configured to run at fixed 100 x 30 resolution, thus you shouldn't manually change the window & buffer sizes.
 
 ## Debug mode
 Alternatively, you can run the game in 'Debug mode', which provides you with more information and control (e.g. Player's position, random' seed, importing and exporting users' data, etc.) over the game by running the game executable file with the `-debug` parameter.
