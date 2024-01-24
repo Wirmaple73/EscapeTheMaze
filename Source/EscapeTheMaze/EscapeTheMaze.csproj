@@ -12,20 +12,22 @@
 	<Description>Escape The Maze</Description>
 	<PlatformTarget>AnyCPU</PlatformTarget>
 	<ApplicationIcon>Icon.ico</ApplicationIcon>
-	<FileVersion>1.0.1</FileVersion>
-	<AssemblyVersion>1.0.1</AssemblyVersion>
-	<Version>1.0.1</Version>
+	<FileVersion>1.1.0</FileVersion>
+	<AssemblyVersion>1.1.0</AssemblyVersion>
+	<Version>1.1.0</Version>
+	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+	<Company>Alireza Shahidi Fard</Company>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>none</DebugType>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <ItemGroup>

@@ -7,6 +7,7 @@ namespace EscapeTheMaze
 	public static class Program
 	{
 		public static bool IsDebugModeEnabled { get; private set; }
+		public static bool DisplayFloodFillTracers { get; private set; }
 
 		private static void Main(string[] args)
 		{
@@ -63,7 +64,11 @@ namespace EscapeTheMaze
 				}
 			}
 
-			void ProcessArguments() => IsDebugModeEnabled = args.Contains("-debug");
+			void ProcessArguments()
+			{
+				IsDebugModeEnabled		= args.Contains("-debug");
+				DisplayFloodFillTracers = args.Contains("-displayfloodfillpath");
+			}
 		}
 	}
 }

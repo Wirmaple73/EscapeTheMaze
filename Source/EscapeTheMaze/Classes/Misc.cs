@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -105,6 +106,7 @@ namespace EscapeTheMaze
 
 		public int Left { get; init; }
 		public int Top { get; init; }
+
 		public bool IsEmpty => this == Empty;
 
 		private const double CloseDistanceThreshold = 25;

@@ -13,7 +13,7 @@ namespace EscapeTheMaze.Managers
 		private static readonly Random random = new();
 
 		private static readonly ConsoleColor[] logoColors = { Yellow, Cyan, Magenta, Green, White };
-		private static readonly string[] goodbyeMessages = { "Have a great day!", "See you later!" };
+		private static readonly string[] goodbyeMessages = { "Have a great day!", "See you later!", "See you soon!" };
 
 		private static readonly Encoding defaultEncoding = Encoding.UTF8;
 
@@ -48,7 +48,7 @@ namespace EscapeTheMaze.Managers
                                         ██    ██   ██ ██ 
                                         ██    ███████ █████
                                         ██    ██   ██ ██
-                                        ██    ██   ██ ███████", 0, 0, Gray);
+                                        ██    ██   ██ ███████", 0, 0, Constants.KeyColor);
 
 			IOManager.WriteAt(@$"
                                 ███╗   ███╗ █████╗ ███████╗███████╗
@@ -73,10 +73,11 @@ namespace EscapeTheMaze.Managers
 			{
 				IOManager.StartNewPage(true);
 
-				Console.WriteLine($"Please choose a username to use in-game [Max length: {maxUsernameLength} characters]");
-				Console.WriteLine("(Please make sure to enter your exact username if you wish to log in):");
+				username = IOManager.Read(
+					$"Please choose a username to use in-game [Max length: {maxUsernameLength} characters]\n(Please make sure to enter your exact username if you wish to log in):\n",
+					Yellow, true
+				);
 
-				username = Console.ReadLine().StripExtraWhitespace().Trim();
 			} while (string.IsNullOrWhiteSpace(username) || username.Length > maxUsernameLength);
 
 			UserManager.StoreCurrentUserIndex(username);
@@ -88,9 +89,13 @@ namespace EscapeTheMaze.Managers
 			while (true)
 			{
 				IOManager.StartNewPage(true);
-
 				DisplayVersionInfo();
-				Console.WriteLine($"{(UserManager.IsNewUser ? "Hello there" : "Welcome back")}, {CurrentUser.Username}!\n");
+
+				IOManager.WriteColored(false, false,
+					($"{(UserManager.IsNewUser ? "Hello there" : "Welcome back")}, ", Constants.KeyColor),
+					(CurrentUser.Username, Yellow),
+					("!\n\n", Constants.KeyColor)
+				);
 
 				IOManager.DrawMenu(
 					"Play", "Leaderboard", "Upgrade shop", "Change account", "Check for updates", "About", "Exit"
@@ -99,7 +104,7 @@ namespace EscapeTheMaze.Managers
 				if (Program.IsDebugModeEnabled)
 					IOManager.DrawMenu((8, "[DEBUG] Import users"), (9, "[DEBUG] Export users"));
 
-				char selectedOption = IOManager.WaitForKeyPress("\nPlease select an option [1-7]: ").KeyChar;
+				char selectedOption = IOManager.WaitForKeyPress($"\nPlease select an option [1-{(Program.IsDebugModeEnabled ? 9 : 7)}]: ").KeyChar;
 
 				switch (selectedOption)
 				{
@@ -124,7 +129,7 @@ namespace EscapeTheMaze.Managers
 			IOManager.StartNewPage();
 			IOManager.SetBufferHeight(5);
 
-			IOManager.WriteColored("Welcome to Escape The Maze, a game where you have to reach the 'Exit point' while dodging 'Walls', optionally collecting 'Bonus points' for a score bonus and also 'Coins' which can be spent in the game's upgrade shop.\n", Gray, true, true);
+			IOManager.WriteColored("Welcome to Escape The Maze, a game where you have to reach the 'Exit point' while dodging 'Walls', optionally collecting 'Bonus points' for a score bonus and also 'Coins' which can be spent in the game's upgrade shop.\n", Constants.KeyColor, true, true);
 			
 			IOManager.WriteHeader("Game entities and their descriptions");
 			DisplayEntityInfo<Player>();
@@ -224,12 +229,12 @@ namespace EscapeTheMaze.Managers
 				IOManager.StartNewPage();
 				IOManager.SetBufferHeight(upgrades.Length + 20);
 
-				IOManager.WriteColored("Welcome to the upgrade shop! you can purchase new upgrades for your character here with the coins you collect in-game.\n\n", Gray, wrapText: true);
+				IOManager.WriteColored("Welcome to the upgrade shop! you can purchase new upgrades for your character here with the coins you collect in-game.\n\n", Constants.KeyColor, wrapText: true);
 				IOManager.WriteColored(false, false,
-					("Your balance: ", Gray),
-					($"${CurrentUser.Balance:N0}", Green),
-					($"/", Gray),
-					($"${UpgradeManager.WalletCapacity:N0}\n", Green),
+					("Your balance: ", Constants.KeyColor),
+					($"${CurrentUser.Balance:N0}", Constants.ValueColor),
+					($"/", Constants.KeyColor),
+					($"${UpgradeManager.WalletCapacity:N0}\n", Constants.ValueColor),
 					("Your level: ", Constants.KeyColor),
 					($"{CurrentUser.Level}\n\n", Constants.ValueColor)
 				);
@@ -281,11 +286,11 @@ namespace EscapeTheMaze.Managers
 							if (CurrentUser.Level >= selectedUpgrade.RequiredLevel)
 							{
 								bool isConfirmed = IOManager.WriteConfirmationMessage(
-									("Are you sure you want to purchase the upgrade \"", Gray),
+									("Are you sure you want to purchase the upgrade \"", Constants.KeyColor),
 									(selectedUpgrade.Name, Cyan),
-									("\" for ", Gray),
-									($"${selectedUpgrade.Price:N0}", Green),
-									("?", Gray)
+									("\" for ", Constants.KeyColor),
+									($"${selectedUpgrade.Price:N0}", Constants.ValueColor),
+									("?", Constants.KeyColor)
 								);
 
 								if (isConfirmed)
@@ -296,11 +301,11 @@ namespace EscapeTheMaze.Managers
 									AudioManager.Play(AudioEffect.UpgradePurchase);
 
 									IOManager.WriteColored(true, false,
-										("Successfully purchased the upgrade \"", Gray),
+										("Successfully purchased the upgrade \"", Constants.KeyColor),
 										(selectedUpgrade.Name, Cyan),
-										("\" for ", Gray),
-										($"${selectedUpgrade.Price:N0}", Green),
-										(".\n", Gray)
+										("\" for ", Constants.KeyColor),
+										($"${selectedUpgrade.Price:N0}", Constants.ValueColor),
+										(".\n", Constants.KeyColor)
 									);
 
 									// Handle 'special' upgrades

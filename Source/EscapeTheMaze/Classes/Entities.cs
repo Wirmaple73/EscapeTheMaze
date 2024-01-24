@@ -16,7 +16,7 @@ namespace EscapeTheMaze.Entities
 		public Entity(Position position) => Position = position;
 
 		public void Draw() => IOManager.WriteAt(Character, Position, Color);
-		public void Hide() => IOManager.WriteAt(" ", Position);
+		public void Hide() => IOManager.WriteAt(' ', Position);
 		public void RedrawAt(Position position)
 		{
 			Hide();
@@ -26,7 +26,6 @@ namespace EscapeTheMaze.Entities
 		}
 
 		public bool IsAtPosition(Position position) => Position == position;
-		public bool IsCloseTo(Entity entity) => Position.IsCloseTo(entity.Position);
 	}
 
 	public class Player : Entity

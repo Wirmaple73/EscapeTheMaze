@@ -12,7 +12,7 @@ namespace EscapeTheMaze.Managers
 	public static class GameManager
 	{
 		// Constants
-		public const int MaxRounds = 10;
+		private const int Rounds = 10;
 
 		// Constants - Score/Balance modifiers
 		public const int ExitPointModifier     = 30;
@@ -34,8 +34,8 @@ namespace EscapeTheMaze.Managers
 
 		// Constants - Walls
 		public const int WallTopOffset = 2;
-		private const int WallDensityMin = 520;
-		private const int WallDensityMax = 600;
+		private const int WallDensityMin = 750;
+		private const int WallDensityMax = 900;
 
 		// Utilities
 		private static readonly GameRandom random = new(Environment.TickCount + Guid.NewGuid().GetHashCode());
@@ -77,7 +77,7 @@ namespace EscapeTheMaze.Managers
 				roundTimer.Elapsed += RoundTimer_Elapsed;
 				ResetGameVariables();
 
-				while (++currentRound <= MaxRounds)
+				while (++currentRound <= Rounds)
 				{
 					IOManager.StartNewPage();
 
@@ -176,18 +176,71 @@ namespace EscapeTheMaze.Managers
 				static void SpawnEntities()
 				{
 					// Primary entities
-					SpawnEntityAt(EntityType.Player, random.NextPosition(true));
-					SpawnEntityAt(EntityType.ExitPoint, random.NextPositionFarFrom(player.Position, true));
+					Position playerPosition, exitPointPosition;
+
+					do
+					{
+						// Ensure there's no softlock
+						playerPosition	  = random.NextPosition(true);
+						exitPointPosition = random.NextPositionFarFrom(playerPosition, true);
+					} while (!ArePositionsConnected(playerPosition, exitPointPosition));
+
+					SpawnEntityAt(EntityType.Player, playerPosition);
+					SpawnEntityAt(EntityType.ExitPoint, exitPointPosition);
 
 					// Secondary entities
 					SpawnEntityWithChance(EntityType.BonusPoint, BonusPointSpawnChance, MaxBonusPoints);
 					SpawnEntityWithChance(EntityType.Coin, CoinSpawnChance, MaxCoins);
 					SpawnEntityWithChance(EntityType.FirstAidKit, FirstAidKitSpawnChance, MaxFirstAidKits);
 					SpawnEntityWithChance(EntityType.Hourglass, HourglassSpawnChance, MaxHourglasses);
-					
-					// Ensure that no walls surround the player & exit point
+
+					// Obsolete: the softlock is now fixed, so there's no need to clear the nearby walls anymore
+					/*
 					ClearWallsAroundEntity(player);
 					ClearWallsAroundEntity(exitPoint);
+					*/
+
+					static bool ArePositionsConnected(Position subject, Position target)
+					{
+						// Basically the flood-fill algorithm along with an additional list to keep track of checked positions, which greatly speeds the check up
+
+						var checkedPositions = new List<Position>();
+
+						var q = new Queue<Position>();
+						q.Enqueue(subject);
+
+						while (q.Count > 0)
+						{
+							var n = q.Dequeue();
+
+							if (!walls.Any(wall => wall.IsAtPosition(n)))
+							{
+								if (n == target)
+									return true;
+
+								EnqueueIfNecessary(-1, 0);  // West
+								EnqueueIfNecessary(1, 0);   // East
+								EnqueueIfNecessary(0, -1);  // North
+								EnqueueIfNecessary(0, 1);   // South
+
+								if (Program.DisplayFloodFillTracers)
+									IOManager.WriteAt("0", n, Cyan);
+							}
+
+							void EnqueueIfNecessary(int leftOffset, int topOffset)
+							{
+								var position = new Position(n.Left + leftOffset, n.Top + topOffset);
+
+								if (checkedPositions.Contains(position) || walls.Any(wall => wall.IsAtPosition(position)))
+									return;
+
+								q.Enqueue(position);
+								checkedPositions.Add(position);
+							}
+						}
+
+						return false;
+					}
 
 					static void SpawnEntityWithChance(EntityType entityType, double chance, int maxOccurrences)
 					{
@@ -203,6 +256,7 @@ namespace EscapeTheMaze.Managers
 						}
 					}
 
+					/*
 					static void ClearWallsAroundEntity(Entity entity)
 					{
 						var position = entity.Position;
@@ -221,6 +275,7 @@ namespace EscapeTheMaze.Managers
 						}
 						entity.Draw();
 					}
+					*/
 				}
 
 				static void SpawnEntityAt(EntityType entityType, Position position)
@@ -353,29 +408,22 @@ namespace EscapeTheMaze.Managers
 			static EntityType GetCollisionType()
 			{
 				if (player.IsAtPosition(exitPoint.Position))
-				{
 					return EntityType.ExitPoint;
-				}
-				else if (walls.Any(IsCollidingWithPlayer()))
-				{
+
+				if (walls.Any(IsCollidingWithPlayer()))
 					return EntityType.Wall;
-				}
-				else if (bonusPoints.Any(IsCollidingWithPlayer()))
-				{
+
+				if (bonusPoints.Any(IsCollidingWithPlayer()))
 					return EntityType.BonusPoint;
-				}
-				else if (coins.Any(IsCollidingWithPlayer()))
-				{
+
+				if (coins.Any(IsCollidingWithPlayer()))
 					return EntityType.Coin;
-				}
-				else if (firstAidKits.Any(IsCollidingWithPlayer()))
-				{
+
+				if (firstAidKits.Any(IsCollidingWithPlayer()))
 					return EntityType.FirstAidKit;
-				}
-				else if (hourglasses.Any(IsCollidingWithPlayer()))
-				{
+
+				if (hourglasses.Any(IsCollidingWithPlayer()))
 					return EntityType.Hourglass;
-				}
 
 				return EntityType.None;
 			}
@@ -477,10 +525,20 @@ namespace EscapeTheMaze.Managers
 				}
 
 				IOManager.WriteHeader($"Round {currentRound} statistics");
-				Console.WriteLine($"Hearts: {currentHearts}");
-				Console.WriteLine($"Score: {currentScore}");
-				Console.WriteLine($"Balance: ${currentBalance}");
-				Console.WriteLine($"Time elapsed: {roundStopwatch.Elapsed:mm':'ss'.'ff}");
+
+				IOManager.WriteColored(false, false,
+					("Hearts: ", Constants.KeyColor),
+					($"{currentHearts}\n", wallColor),
+
+					("Score: ", Constants.KeyColor),
+					($"{currentScore}\n", wallColor),
+
+					("Balance: ", Constants.KeyColor),
+					($"{currentBalance}\n", wallColor),
+
+					("Time elapsed: ", Constants.KeyColor),
+					($"{roundStopwatch.Elapsed:mm':'ss'.'ff}\n", wallColor)
+				);
 
 				if (roundState == RoundState.Failure)
 					IOManager.WriteColored("\nDon't worry, you can always do better!", Cyan, true);
@@ -497,9 +555,15 @@ namespace EscapeTheMaze.Managers
 				IOManager.WriteHeader("Game statistics");
 
 				IOManager.WriteColored(false, false,
-					($"Total score: {currentScore} {(currentScore > CurrentUser.TopScore ? "(New top score!)" : "")}\n", Gray),
-					($"Total cash collected: ${currentBalance}\n", Gray),
-					($"Total time elapsed: {gameStopwatch.Elapsed:mm':'ss'.'ff}\n\n", Gray)
+					("Total score: ", Constants.KeyColor),
+					(currentScore.ToString(), wallColor),
+					($"{(currentScore > CurrentUser.TopScore ? " (New top score!)" : "")}\n", Constants.KeyColor),
+
+					("Total cash collected: ", Constants.KeyColor),
+					($"${currentBalance}\n", wallColor),
+
+					("Total time elapsed: ", Constants.KeyColor),
+					($"{gameStopwatch.Elapsed:mm':'ss'.'ff}\n\n", wallColor)
 				);
 
 				if (roundState == RoundState.Successful)
@@ -510,9 +574,9 @@ namespace EscapeTheMaze.Managers
 					if (currentScore >= ExtraBonusScoreThreshold)
 					{
 						IOManager.WriteColored(false, false,
-							("You've received an additional ", Gray),
+							("You've received an additional ", Constants.KeyColor),
 							($"${ExtraBonusAmount} ", Green),
-							("bonus for your performance, keep it up!\n", Gray)
+							("bonus for your performance, keep it up!\n", Constants.KeyColor)
 						);
 
 						currentBalance += ExtraBonusAmount;
@@ -565,14 +629,14 @@ namespace EscapeTheMaze.Managers
 
 			ConsoleColor valueColor = wallColor;
 			
-			bool isLowOnHearts = currentHearts <= 2;
+			bool isLowOnHearts		= currentHearts <= 2;
 			bool isRunningOutOfTime = currentTimeLeft <= 10;
 
 			IOManager.ClearLine(0);
 			IOManager.ClearLine(1);
 
 			IOManager.WriteColored(false, true,
-				($"Round ", Constants.KeyColor), ($"{currentRound}", valueColor), ("/", Constants.KeyColor), ($"{MaxRounds}", valueColor),
+				($"Round ", Constants.KeyColor), ($"{currentRound}", valueColor), ("/", Constants.KeyColor), ($"{Rounds}", valueColor),
 				($"{separator}Hearts: ", Constants.KeyColor), (currentHearts.ToString(), isLowOnHearts ? LowValueColor : valueColor),
 				($"{separator}Armors: ", Constants.KeyColor), (currentArmors.ToString(), valueColor),
 				($"{separator}Score: ", Constants.KeyColor), (currentScore.ToString(), valueColor),

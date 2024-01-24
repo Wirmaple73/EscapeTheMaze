@@ -8,8 +8,8 @@ namespace EscapeTheMaze.Managers
 		public const string RepositoryURL = "https://github.com/Wirmaple73/EscapeTheMaze/";
 		private const string LookupURL = "https://raw.githubusercontent.com/Wirmaple73/EscapeTheMaze/main/CurrentVersion.txt";
 
-		public static readonly Version CurrentVersion = new(1, 0, 1);
-		public static readonly DateTime BuildDate = new(2024, 1, 16);
+		public static readonly Version CurrentVersion = new(1, 1, 0);
+		public static readonly DateTime BuildDate = new(2024, 1, 24);
 
 		private const string SuccessMessage = "The operation completed successfully.";
 

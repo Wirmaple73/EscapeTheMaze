@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace EscapeTheMaze.Managers
@@ -107,6 +106,18 @@ namespace EscapeTheMaze.Managers
 		{
 			Console.Clear();
 			Console.CursorVisible = isCursorVisible;
+		}
+
+		public static string Read(string prompt = null, ConsoleColor color = ConsoleColor.Gray, bool trimWhitespace = false)
+		{
+			if (prompt is not null)
+				Console.Write(prompt);
+
+			Console.ForegroundColor = color;
+			string value = Console.ReadLine();
+
+			Console.ResetColor();
+			return trimWhitespace ? value.StripExtraWhitespace().Trim() : value;
 		}
 
 		public static ConsoleKeyInfo WaitForKeyPress(string prompt = null, bool acceptOnlyEnter = false, bool playAudioEffect = true)
