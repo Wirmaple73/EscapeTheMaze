@@ -40,7 +40,7 @@ The listed entries are updated with the latest game update.
 		<td>Random</td>
 		<td>Wall</td>
 		<td>~</td>
-		<td>600</td>
+		<td>900</td>
 		<td align="left">The main obstacles in the game. Colliding with one deducts a heart, 20 score and cause you to respawn, thus be extra careful around those.</td>
 	</tr>
  	<tr align="center">
@@ -138,7 +138,9 @@ Though, you have to use the WASD keys (Arrow keys won't work) along with the Shi
 
 ## Known issues/inconsistencies
 ### Possible round softlock:
-On very rare occasions, there might be some walls completely surrounding the player and/or the exit point, making the round unbeatable. However, you can bypass them with the "The Boots of Leaping" upgrade.
+~~On very rare occasions, there might be some walls completely surrounding the player and/or the exit point, making the round unbeatable. However, you can bypass them with the "The Boots of Leaping" upgrade.~~
+
+This is fixed as of version `1.1.0`.
 
 ### Players' data corruption:
 One small syntactical error in the output XML file (Located at `C:\Users\%Username%\AppData\Local\EscapeTheMaze\Users.xml`) can render the whole file useless. this normally wouldn't happen if you don't tamper with the file.
@@ -161,6 +163,23 @@ Moreover, the game is configured to run at fixed 100 x 30 resolution, thus you s
 
 ## Debug mode
 Alternatively, you can run the game in 'Debug mode', which provides you with more information and control (e.g. Player's position, random' seed, importing and exporting users' data, etc.) over the game by running the game executable file with the `-debug` parameter.
+
+Here is a list of currently supported parameters:
+
+<table>
+	<tr>
+		<th>Parameter name</th>
+		<th>Purpose</th>
+	</tr>
+	<tr align="center">
+		<td>-debug</td>
+		<td>Enables the Debug mode.</td>
+	</tr>
+	<tr align="center">
+		<td>-displayfloodfillpath</td>
+		<td>Displays the path navigated by the new flood-fill algorithm.</td>
+	</tr>
+</table>
 
 ## Images
 <img src="https://github.com/Wirmaple73/EscapeTheMaze/assets/71328992/9a0c5650-bd39-4bbf-b331-fd4a89062a76" width="15%"></img> 
