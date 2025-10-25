@@ -193,4 +193,4 @@ Here is a list of currently supported parameters:
 Enough wall of text. You can download the latest release [here](https://github.com/Wirmaple73/EscapeTheMaze/releases/latest).
 
 All downloaded audio files belong to their respective owners.<br>
-Feel free to submit your suggestions and report any bugs you come across. Any contribution is highly welcome!
+Feel free to submit suggestions and report any bugs you stumble upon. Any contribution is highly welcome!
